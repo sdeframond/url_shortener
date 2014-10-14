@@ -15,11 +15,11 @@ ActiveRecord::Schema.define(version: 20141014141525) do
 
   create_table "shortened_urls", force: true do |t|
     t.string   "full_url"
-    t.string   "hash"
+    t.string   "url_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "shortened_urls", ["hash"], name: "index_shortened_urls_on_hash"
+  add_index "shortened_urls", ["url_hash"], name: "index_shortened_urls_on_url_hash"
 
 end
