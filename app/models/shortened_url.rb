@@ -11,4 +11,8 @@ class ShortenedUrl < ActiveRecord::Base
   before_validation do
     self.url_hash = Digest::MD5.base64digest(self.full_url)[0..6] if self.full_url
   end
+
+  def to_param
+    self.url_hash
+  end
 end

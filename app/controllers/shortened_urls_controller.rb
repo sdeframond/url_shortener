@@ -1,4 +1,9 @@
 class ShortenedUrlsController < ApplicationController
+
+  def show
+    @fancy_url = fancy_url(ShortenedUrl.where(url_hash: params[:id]).first!)
+  end
+
   def new
     @shortened_url = ShortenedUrl.new
   end
@@ -10,6 +15,11 @@ class ShortenedUrlsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def redirect
+    @url = ShortenedUrl.where(url_hash: params[:url_hash]).first!
+    redirect_to @url.full_url
   end
 
   private
