@@ -22,6 +22,8 @@ gem 'spring',        group: :development
 group :development, :test do
   gem 'capybara'
   gem 'rspec-rails', '~> 3.0.0'
+  gem "factory_girl_rails", "~> 4.0"
+  gem "factory_girl"
   gem 'simplecov', '~> 0.7.1'
   gem 'pry'
   gem 'pry-doc'
