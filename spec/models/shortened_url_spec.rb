@@ -8,10 +8,11 @@ RSpec.describe ShortenedUrl, :type => :model do
       expect(url.valid?).to be false
     end
 
-    it "checks :url_hash's length" do
+    it "updates :url_hash" do
       url = build(:shortened_url)
-      url.url_hash = "f"
-      expect(url.valid?).to be false
+      url.url_hash = nil
+      url.valid?
+      expect(url.url_hash).to eq('7WRqMzT')
     end
   end
 end

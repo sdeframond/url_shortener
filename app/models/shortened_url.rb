@@ -7,4 +7,8 @@ class ShortenedUrl < ActiveRecord::Base
   validates :url_hash,
     length: {is: 7},
     presence: true
+
+  before_validation do
+    self.url_hash = Digest::MD5.base64digest(self.full_url)[0..6] if self.full_url
+  end
 end
