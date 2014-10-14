@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014141525) do
+ActiveRecord::Schema.define(version: 20141014210507) do
 
   create_table "shortened_urls", force: true do |t|
     t.string   "full_url"
@@ -21,5 +21,13 @@ ActiveRecord::Schema.define(version: 20141014141525) do
   end
 
   add_index "shortened_urls", ["url_hash"], name: "index_shortened_urls_on_url_hash"
+
+  create_table "visits", force: true do |t|
+    t.integer  "shortened_url_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "visits", ["shortened_url_id"], name: "index_visits_on_shortened_url_id"
 
 end

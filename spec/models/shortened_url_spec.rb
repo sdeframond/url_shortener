@@ -15,4 +15,12 @@ RSpec.describe ShortenedUrl, :type => :model do
       expect(url.url_hash).to eq('7WRqMzT')
     end
   end
+
+  describe "#track_redirection!" do
+    it "records a new visit" do
+      url = create(:shortened_url)
+      url.track_redirection!
+      expect(url.visits.count).to eq(1)
+    end
+  end
 end

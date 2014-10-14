@@ -19,6 +19,7 @@ class ShortenedUrlsController < ApplicationController
 
   def redirect
     @url = ShortenedUrl.where(url_hash: params[:url_hash]).first!
+    @url.track_redirection!
     redirect_to @url.full_url
   end
 
