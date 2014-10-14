@@ -20,4 +20,6 @@ ActiveRecord::Schema.define(version: 20141014141525) do
     t.datetime "updated_at"
   end
 
+  add_index "shortened_urls", ["hash"], name: "index_shortened_urls_on_hash"
+
 end
