@@ -10,6 +10,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 
 gem 'slim-rails'
+gem 'simple_form'
 
 gem 'jquery-rails'
 gem 'turbolinks'
