@@ -14,8 +14,12 @@ class ShortenedUrl < ActiveRecord::Base
     self.url_hash = Digest::MD5.base64digest(self.full_url)[0..6] if self.full_url
   end
 
-  def track_redirection!
-    self.visits.create!
+  def track_redirection!(session_id, env)
+    device = Device.find_or_create_from_env!(session_id, env)
+    self.visits.create! \
+      device: device,
+      http_referer: env['HTTP_REFERER'],
+      remote_addr: env['REMOTE_ADDR']
   end
 
   def to_param

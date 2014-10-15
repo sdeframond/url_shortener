@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014210507) do
+ActiveRecord::Schema.define(version: 20141015082621) do
+
+  create_table "devices", force: true do |t|
+    t.string   "session"
+    t.string   "fingerprint"
+    t.string   "http_accept"
+    t.string   "http_accept_language"
+    t.string   "http_accept_encoding"
+    t.string   "http_dnt"
+    t.string   "user_agent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "devices", ["fingerprint"], name: "index_devices_on_fingerprint"
+  add_index "devices", ["session"], name: "index_devices_on_session"
 
   create_table "shortened_urls", force: true do |t|
     t.string   "full_url"
@@ -26,8 +41,12 @@ ActiveRecord::Schema.define(version: 20141014210507) do
     t.integer  "shortened_url_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "remote_addr"
+    t.string   "http_referer"
+    t.integer  "device_id"
   end
 
+  add_index "visits", ["device_id"], name: "index_visits_on_device_id"
   add_index "visits", ["shortened_url_id"], name: "index_visits_on_shortened_url_id"
 
 end
