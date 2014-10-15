@@ -32,6 +32,7 @@ group :development, :test do
   gem 'pry-debugger'
   gem 'pry-stack_explorer'
   gem 'quiet_assets'
+  gem 'database_cleaner'
 end
 
 # Use ActiveModel has_secure_password
