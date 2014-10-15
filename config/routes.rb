@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     resources :shortened_urls, path: :url, only: [:create, :show]
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :shortened_urls, path: :urls, only: [:create, :show]
+    end
+  end
+
   get ':url_hash', to: "shortened_urls#redirect", as: :fancy
 
   # You can have the root of your site routed with "root"
