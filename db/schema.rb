@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20141015082621) do
     t.string   "http_accept_language"
     t.string   "http_accept_encoding"
     t.string   "http_dnt"
-    t.string   "user_agent"
+    t.string   "http_user_agent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
