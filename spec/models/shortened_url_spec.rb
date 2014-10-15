@@ -18,8 +18,13 @@ RSpec.describe ShortenedUrl, :type => :model do
 
   describe "#track_redirection!" do
     it "records a new visit" do
+      env = {'HTTP_REFERER' => nil, 'REMOTE_ADDR' => "123.123.123.123"}
+      session_id = 1
+      expect(Device).to receive(:find_or_create_from_env!)
+        .with(session_id, env)
+        .and_return(create(:device))
       url = create(:shortened_url)
-      url.track_redirection!
+      url.track_redirection!(session_id, env)
       expect(url.visits.count).to eq(1)
     end
   end

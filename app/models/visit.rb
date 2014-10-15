@@ -14,7 +14,7 @@ class Visit < ActiveRecord::Base
     }
   validates :http_referer,
     format: {
-      with: /\A#{URI::regexp(['http', 'https'])}\z/,
+      with: /\A(|#{URI::regexp(['http', 'https'])})\z/,
       message: "should be a valid URL"
     }
 end
