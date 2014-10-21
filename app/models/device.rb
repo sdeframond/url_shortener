@@ -33,13 +33,20 @@ class Device < ActiveRecord::Base
     def find_or_create_from_env!(session_id, env)
       device = find_by_session(session_id)
       return device if device
+
       params = {}
       FINGERPRINT_HEADERS.each {|h| params[h] = env[h.to_s.upcase]}
       params[:session] = session_id
       new_device = new(params)
       new_device.make_fingerprint
-      device = find_by_fingerprint(new_device.fingerprint) unless device
+
+      device = joins(:visits)
+        .where(
+          devices: {fingerprint: new_device.fingerprint},
+          visits: {remote_addr: env['REMOTE_ADDR']}
+        ).order("visits.created_at DESC").first
       return device if device
+
       new_device.save!
       return new_device
     end
