@@ -10,6 +10,12 @@ feature "creating an url" do
     expect(page).to have_content("http://www.example.com/7WRqMzT")
   end
 
+  scenario "create the same url twice" do
+    create_url("http://www.google.com")
+    create_url("http://www.google.com")
+    expect(page).to have_content("http://www.example.com/7WRqMzT")
+  end
+
   scenario "create an incorrect url" do
     create_url("foobar")
     expect(page).to have_content("should be a valid URL")

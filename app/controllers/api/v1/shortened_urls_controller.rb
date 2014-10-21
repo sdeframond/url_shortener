@@ -5,8 +5,8 @@ class Api::V1::ShortenedUrlsController < Api::V1::ApplicationController
   end
 
   def create
-    url = ShortenedUrl.new(shortened_url_params)
-    if url.save
+    url = ShortenedUrl.find_or_create(shortened_url_params)
+    if url.valid?
       respond_with url, location: api_v1_shortened_url_url(url)
     else
       respond_with url

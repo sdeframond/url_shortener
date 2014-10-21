@@ -8,7 +8,8 @@ class ShortenedUrl < ActiveRecord::Base
     presence: true
   validates :url_hash,
     length: {is: 7},
-    presence: true
+    presence: true,
+    uniqueness: true
 
   before_validation do
     self.url_hash = Digest::MD5.base64digest(self.full_url)[0..6] if self.full_url
@@ -24,5 +25,20 @@ class ShortenedUrl < ActiveRecord::Base
 
   def to_param
     self.url_hash
+  end
+
+  class << self
+    def find_or_create(params)
+      record = new(params)
+      if record.save
+        record
+      else
+        if record.errors[:url_hash].include? "has already been taken"
+          find_by_url_hash(record.url_hash)
+        else
+          record
+        end
+      end
+    end
   end
 end

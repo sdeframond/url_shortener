@@ -15,6 +15,12 @@ RSpec.describe "/api/v1/urls", :type => :api do
       post "#{path}.json", shortened_url: short_url.as_json
       expect(last_response.status).to eq(201)
     end
+    it "successful when submitting twice the same url" do
+      short_url = build(:shortened_url)
+      post "#{path}.json", shortened_url: short_url.as_json
+      post "#{path}.json", shortened_url: short_url.as_json
+      expect(last_response.status).to eq(201)
+    end
     it 'unsuccessful' do
       post "#{path}.json", shortened_url: {full_url: nil}
       expect(last_response.status).to eq(422)

@@ -9,8 +9,8 @@ class ShortenedUrlsController < ApplicationController
   end
 
   def create
-    @shortened_url = ShortenedUrl.new(shortened_url_params)
-    if @shortened_url.save
+    @shortened_url = ShortenedUrl.find_or_create(shortened_url_params)
+    if @shortened_url.valid?
       redirect_to @shortened_url
     else
       render 'new'

@@ -14,6 +14,12 @@ RSpec.describe ShortenedUrl, :type => :model do
       url.valid?
       expect(url.url_hash).to eq('7WRqMzT')
     end
+
+    it "enforces :url_hash unicity" do
+      url = create(:shortened_url)
+      url2 = build(:shortened_url)
+      expect(url2.valid?).to be false
+    end
   end
 
   describe "#track_redirection!" do
