@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :shortened_urls, path: :urls, only: [:create, :show]
+      resources :shortened_urls, path: :urls, only: [:create, :show] do
+        resources :visits, only: [:index]
+      end
     end
   end
 
